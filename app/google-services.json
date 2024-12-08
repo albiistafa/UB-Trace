@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648829657897",
+    "project_id": "ubtrace-222ff",
+    "storage_bucket": "ubtrace-222ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648829657897:android:38ab5c2f825311e69d0d38",
+        "android_client_info": {
+          "package_name": "com.example.ubtrace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfMwNENndO1ry-PfE_ligQM4FHjC5wfCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
