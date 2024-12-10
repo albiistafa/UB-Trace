@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+    id ("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
 android {
@@ -41,8 +42,14 @@ android {
 }
 
 dependencies {
-    implementation (libs.androidx.hilt.navigation.compose)
-    implementation (libs.hilt.android) 
+    implementation(libs.com.google.devtools.ksp.gradle.plugin)
+    implementation(libs.androidx.espresso.core)
+    ksp (libs.dagger.compiler) // Dagger compiler
+    ksp (libs.hilt.compiler)
+
+    implementation(libs.androidx.navigation.compose)
+
+    implementation (libs.firebase.firestore.ktx)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.core.ktx)

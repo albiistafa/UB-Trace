@@ -60,7 +60,7 @@ fun Logincard(
                 contentDescription = "logo", Modifier.height(100.dp).fillMaxWidth())
 
             OutlinedTextField(
-                value = "",
+                value = email,
                 onValueChange = { email = it },
                 label = { Text("Alamat Email") },
                 modifier = Modifier.fillMaxWidth()
@@ -68,7 +68,7 @@ fun Logincard(
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = "",
+                value = password,
                 onValueChange = { password = it },
                 label = { Text("Kata Sandi") },
                 modifier = Modifier.fillMaxWidth(),

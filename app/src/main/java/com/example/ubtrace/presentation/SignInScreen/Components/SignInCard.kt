@@ -21,6 +21,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,42 +38,56 @@ import com.example.ubtrace.R
 
 @Composable
 fun Signincard(
-    modifier: Modifier
+    modifier: Modifier,
+    onSignUp: (String, String, String) -> Unit
 )
 {
-    Card (modifier = Modifier.fillMaxSize().padding(32.dp),
+    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("")
+    }
+
+        Card (modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors  = CardDefaults.cardColors(contentColor = Color.White)
     ) {
         Column (
-            modifier = Modifier.padding(10.dp)
-                .fillMaxWidth().fillMaxHeight(),
+            modifier = Modifier
+                .padding(10.dp)
+                .fillMaxWidth()
+                .fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ){
             Image(painter = painterResource(id = R.drawable.logo),
-                contentDescription = "logo", Modifier.height(100.dp).fillMaxWidth())
+                contentDescription = "logo",
+                Modifier
+                    .height(100.dp)
+                    .fillMaxWidth())
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Alamat Email") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = username,
+                onValueChange = { username = it },
                 label = { Text("Nama Pengguna") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = password,
+                onValueChange = { password = it },
                 label = { Text("Kata Sandi") },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
@@ -81,8 +99,8 @@ fun Signincard(
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = confirmPassword,
+                onValueChange = { confirmPassword = it },
                 label = { Text("Konfirmasi Kata Sandi") },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
@@ -103,7 +121,13 @@ fun Signincard(
             Spacer(modifier = Modifier.height(50.dp))
 
             Button(
-                onClick = {},
+                onClick = {
+                    if (password == confirmPassword) {
+                        onSignUp(email, password, username)
+                    } else {
+                        // Handle password mismatch error
+                    }
+                },
                 shape = RoundedCornerShape(25.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,7 +137,7 @@ fun Signincard(
                     containerColor = Color(0xFF314D51)
                 )
             ) {
-                Text(text = "Masuk", fontSize = 18.sp, color = Color.White)
+                Text(text = "Sign Up", fontSize = 18.sp, color = Color.White)
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -141,5 +165,8 @@ fun Signincard(
 @Composable
 @Preview
 fun preview(){
-    Signincard(modifier = Modifier)
+    Signincard(
+        modifier = Modifier,
+        onSignUp = TODO()
+    )
 }

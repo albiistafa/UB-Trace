@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ubtrace.domain.auth.AuthState
@@ -23,7 +22,7 @@ import com.example.ubtrace.presentation.LoginScreen.Components.topAppbarLogSign
 @Composable
 internal fun LoginScreen(
     navController: NavController,
-    viewModel: AuthViewModel = hiltViewModel(),
+    viewModel: AuthViewModel = AuthViewModel(),
     onLoginSuccess: () -> Unit
 ){
     // Collect the auth state from the ViewModel
@@ -63,14 +62,12 @@ fun LoginContent(
     state: LoginViewState,
     onLogin: (String, String)-> Unit
 ){
-    Loading(isLoading = state.isLoading)
-
     Scaffold (
         containerColor = Color(0xFFFFDE59),
         modifier = Modifier.fillMaxSize(),
         topBar = {
             topAppbarLogSign()
-        }, content = {paddingValues ->
+        }, content = { paddingValues ->
             Column (
                 modifier = Modifier.padding(paddingValues)
                     .fillMaxWidth()
@@ -93,4 +90,3 @@ fun preview(){
         onLogin = TODO()
     )
 }
-

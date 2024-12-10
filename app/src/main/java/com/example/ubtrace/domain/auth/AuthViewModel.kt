@@ -2,16 +2,16 @@ package com.example.ubtrace.domain.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ubtrace.data.auth.authRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.ubtrace.data.auth.AuthRepository
+import com.example.ubtrace.data.auth.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-class AuthViewModel(private val authRepository: authRepository): ViewModel() {
+class AuthViewModel : ViewModel() {
+    private val authRepository: AuthRepository = AuthRepositoryImpl() // Membuat AuthRepository secara manual
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
-    val authState: StateFlow<AuthState> get() =_authState
+    val authState: StateFlow<AuthState> get() = _authState
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
@@ -25,14 +25,14 @@ class AuthViewModel(private val authRepository: authRepository): ViewModel() {
         }
     }
 
-    fun register(email: String, password: String) {
+    fun register(email: String, password: String, username: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            val result = authRepository.register(email, password)
+            val result = authRepository.register(email, password, username)
             _authState.value = if (result.isSuccess) {
                 AuthState.Success(result.getOrNull())
             } else {
-                AuthState.Error(result.exceptionOrNull()?.message ?: "Unknown error")
+                AuthState.Error(result.exceptionOrNull()?.message ?: "Registration failed")
             }
         }
     }

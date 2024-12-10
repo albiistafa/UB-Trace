@@ -12,11 +12,7 @@ import com.example.ubtrace.presentation.LoginScreen.LoginScreen
 import com.example.ubtrace.presentation.SignInScreen.SignInScreen
 import com.example.ubtrace.presentation.WelcomeScreen.WelcomeScreen
 import com.google.firebase.auth.FirebaseAuth
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
-@AndroidEntryPoint
-@HiltAndroidApp
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +26,9 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    // Firebase untuk cek current user
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
 
-    // Tentukan startDestination berdasarkan apakah ada current user
     NavHost(
         navController = navController,
         startDestination = if (currentUser != null) "home" else "welcome"
@@ -43,14 +37,14 @@ fun AppNavigation() {
             WelcomeScreen(navController)
         }
         composable("login") {
-            // Pass the onLoginSuccess parameter here
             LoginScreen(navController) {
-                // This will be executed after a successful login
                 navController.navigate("home")
             }
         }
         composable("signup") {
-            SignInScreen(navController)
+            SignInScreen(navController) {
+                navController.navigate("login")
+            }
         }
         composable("home") {
             HomeScreen(navController)
