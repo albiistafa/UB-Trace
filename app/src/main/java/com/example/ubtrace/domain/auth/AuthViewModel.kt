@@ -36,6 +36,7 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+
 }
 
 sealed class AuthState {
